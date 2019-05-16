@@ -128,7 +128,6 @@ public class PushStackMojo extends AbstractCloudformationMojo {
 
   public void setTags(String tags) {
     List<String> nvPairs = asList(tags.split(","));
-
     this.tags =
         nvPairs
             .stream()
@@ -190,10 +189,10 @@ public class PushStackMojo extends AbstractCloudformationMojo {
         for (String requiredParameter : requiredParameterNames) {
           if (!existingParameterNames.contains(requiredParameter)) {
             getLog().warn("Missing required parameter name: " + requiredParameter);
-            getLog().warn("If its an update, will reuse previous value");
+            //getLog().warn("If its an update, will reuse previous value");
           }
 
-          this.parameters.add(new com.amazonaws.services.cloudformation.model.Parameter().withParameterKey(requiredParameter).withUsePreviousValue(true));
+          //this.parameters.add(new com.amazonaws.services.cloudformation.model.Parameter().withParameterKey(requiredParameter).withUsePreviousValue(true));
         }
       }
     }
@@ -251,7 +250,6 @@ public class PushStackMojo extends AbstractCloudformationMojo {
     } else {
       req.withTemplateBody(templateBody);
     }
-
     req.withNotificationARNs(notificationArns);
     req.withRoleARN(roleArn);
     req.withParameters(parameters);
