@@ -126,6 +126,12 @@ public class PushStackMojo extends AbstractCloudformationMojo {
   @Parameter(property = "cloudformation.tags")
   List<Tag> tags = new ArrayList<>();
 
+  /**
+   * Capabilities
+   */
+  @Parameter(property = "cloudformation.capabilities")
+  Collection<String> capabilities = new ArrayList<>();
+  
   public void setTags(String tags) {
     List<String> nvPairs = asList(tags.split(","));
     this.tags =
@@ -256,6 +262,7 @@ public class PushStackMojo extends AbstractCloudformationMojo {
     req.withResourceTypes(resourceTypes);
     req.withDisableRollback(disableRollback);
     req.withTags(tags);
+    req.withCapabilities(this.capabilities);
     req.withTimeoutInMinutes(timeoutInMinutes);
 
     return getService().createStack(req);
